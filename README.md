@@ -68,7 +68,7 @@ local myDebugTable = {
   Wave = 0
 }
   
-gui:add("input", myDebugTable, 'RotateLogo', {
+gui:add("monitor", myDebugTable, 'Wave', {
   step = 1,
   min = 0,
   max = 360
