@@ -1,0 +1,19 @@
+<meta>
+  <info author="flashii" type="script" version="1.0.0" />
+
+  <min_mta_version client="1.5.8-9.20979"></min_mta_version>
+
+  <script src="src/utils/getFPS.lua" type="client" cache="true"/>
+  <script src="src/utils/getPositionFromBox.lua" type="client" cache="false" />
+  <script src="src/utils/getScaleValue.lua" type="client" cache="false" />
+
+  <script src="src/core/Core.lua" type="client" />
+  <script src="dist/playground.lua" type="client" />
+
+
+  <file src="src/3rd-party/bundle.js" />
+  <file src="src/3rd-party/ui.html" />
+
+
+  <<export function="TweakControlClass" type="client" />
+</meta>

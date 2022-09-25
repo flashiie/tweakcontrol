@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<script src="./bundle.js"></script>
+<script>
+
+  let PARAMS = {};
+
+  const add = (raw) => {
+    const data = raw[0]
+    PARAMS = {...PARAMS, [`${data.name}`]: data.value }
+    let input
+
+
+    switch (data.type) {
+      case 'input':
+       input = pane.addInput(PARAMS, data.name, data.options);
+
+       input.on('change', function(ev) {
+          mta.triggerEvent("twakcontrol:updateValue", JSON.stringify({key: ev.presetKey, value: ev.value}))
+       });
+      break;
+      case 'monitor':
+        input = pane.addMonitor(PARAMS, data.name, data.options);
+      break;
+    }
+
+  }
+
+    
+  const setMonitorValue = (raw) => {
+    const data = raw[0]
+    setInterval(() => {
+      PARAMS[data.name] = data.value
+     // console.log(PARAMS[data.name])
+    }, 1000)
+  }
+</script>
+
+</body>
+</html>
