@@ -69,10 +69,10 @@ local myDebugTable = {
 }
   
 gui:add("monitor", myDebugTable, 'Wave', {
-  step = 1,
-  min = 0,
-  max = 360
-}); 
+  view = 'graph',
+  min = 1,
+  max = 100,
+})
 ```
 This is a simple inline activity monitor, you can pass an FPS or an MS or any other value that keeps switching during rendering. (you can use gui:setMonitorValue() to change the value.)
 
