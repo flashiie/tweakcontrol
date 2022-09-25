@@ -42,13 +42,13 @@ local myDebugTable = {
 }
 
 -- String Input-type
-gui:add("input", myDebugTable, 'MyText')
+tweak:add("input", myDebugTable, 'MyText')
 
 --- Boolean Input-Type
-gui:add("input", myDebugTable, 'ToggleLogo')
+tweak:add("input", myDebugTable, 'ToggleLogo')
 
 --  Slider Input-Type
-gui:add("input", myDebugTable, 'RotateLogo', {
+tweak:add("input", myDebugTable, 'RotateLogo', {
   step = 1,
   min = 0,
   max = 360
@@ -68,7 +68,7 @@ local myDebugTable = {
   Wave = 0
 }
   
-gui:add("monitor", myDebugTable, 'Wave', {
+tweak:add("monitor", myDebugTable, 'Wave', {
   view = 'graph',
   min = 1,
   max = 100,
