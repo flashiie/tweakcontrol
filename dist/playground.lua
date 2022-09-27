@@ -15,24 +15,24 @@ local myDebugTable = {
 }
 
 -- Add Input Text of String
-gui:add("input", myDebugTable, 'MyText')
+tweak:add("input", myDebugTable, 'MyText')
 
 
 --- Add Boolean Input-Type
-gui:add("input", myDebugTable, 'ToggleLogo')
+tweak:add("input", myDebugTable, 'ToggleLogo')
 
 -- Add Slider Input-Type
-gui:add("input", myDebugTable, 'RotateLogo', {
+tweak:add("input", myDebugTable, 'RotateLogo', {
   step = 1,
   min = 0,
   max = 360
 });
 
 -- Add Color Input-type
-gui:add("input", myDebugTable, 'myColor')
+tweak:add("input", myDebugTable, 'myColor')
 
 -- Create a simple line monitor
-gui:add("monitor", myDebugTable, 'Wave', {
+tweak:add("monitor", myDebugTable, 'Wave', {
   view = 'graph',
   min = 1,
   max = 100,
