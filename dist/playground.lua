@@ -4,7 +4,9 @@
     @license See mode on https://rocketmta.com
 --]]
 
-local tweak = TweakControlClass("Flashii Debugger")
+local tweak = TweakControlClass(12, "Movie")
+local tweak2 = TweakControlClass(123, "Maker")
+
 
 local myDebugTable = {
   MyText = "Flashii",
@@ -14,11 +16,12 @@ local myDebugTable = {
   Wave = 0
 }
 
--- Add Input Text of String
+-- -- Add Input Text of String
 tweak:add("input", myDebugTable, 'MyText')
+tweak2:add("input", myDebugTable, 'MyText')
 
 
---- Add Boolean Input-Type
+-- --- Add Boolean Input-Type
 tweak:add("input", myDebugTable, 'ToggleLogo')
 
 -- Add Slider Input-Type
@@ -35,12 +38,12 @@ tweak:add("input", myDebugTable, 'myColor')
 tweak:add("monitor", myDebugTable, 'Wave', {
   view = 'graph',
   min = 1,
-  max = 100,
+  max = getFPSLimit(),
 })
 
 -- Update Monito Value
 addEventHandler("onClientPreRender", root, function () 
-  gui:setMonitorValue('Wave', getCurrentFPS())
+  tweak:setMonitorValue('Wave', getCurrentFPS())
 end)
 
 

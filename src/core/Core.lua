@@ -10,13 +10,14 @@ local private = {}
 setmetatable(private, {__mode = 'k'});
 
 local scale, screenX, screenY = getScaleValue()
-
+local browser = guiGetBrowser(guiCreateBrowser(0, 0, 270, screenY, true, true, false))
 -- dev
-setDevelopmentMode(false, false)
+setDevelopmentMode(true, true)
 
-function twakcontrol:new(title)
+function twakcontrol:new(name, title)
   local instance = {}
 
+  instance.name = 'folder_'..name or 'folder_'..math.random(0,36692)..''
   instance.title = title or "Controls"
  
   setmetatable(instance, {__index = self })
@@ -27,17 +28,15 @@ function twakcontrol:new(title)
   private[instance].isReady = false
   private[instance].default = {}
   private[instance].datas = {}
-  private[instance].browser = guiGetBrowser(guiCreateBrowser(0, 0, 270, screenY, true, true, false))
 
-  if (private[instance].browser) then
-    addEventHandler("onClientBrowserCreated", private[instance].browser, function()
-      loadBrowserURL(source, "http://mta/local/src/3rd-party/ui.html")
+
+  if (#twakcontrol == 0) then
+    addEventHandler("onClientBrowserCreated", browser, function()
+      --toggleBrowserDevTools(browser, true)
+      loadBrowserURL(source, "http://mta/tweakcontrol/src/3rd-party/ui.html")
     end)
 
-    addEventHandler("onClientBrowserDocumentReady", private[instance].browser, function () 
-      private[instance].isReady = true
-      executeBrowserJavascript(private[instance].browser, "const pane = new Tweakpane.Pane({ title: '"..instance.title.."'});")
-    end)
+
 
     addEvent("twakcontrol:updateValue", true)
     addEventHandler("twakcontrol:updateValue", root, function (store)
@@ -46,6 +45,13 @@ function twakcontrol:new(title)
     end)
   end
 
+
+  addEventHandler("onClientBrowserDocumentReady", browser, function () 
+      private[instance].isReady = true
+      executeBrowserJavascript(browser, "makeFolder('"..instance.name.."', '"..instance.title.."')")
+  end)
+
+  table.insert(twakcontrol, self)
   return instance
 end
 
@@ -57,14 +63,14 @@ function twakcontrol:add(type, table, name, options)
 
   private[self].default = table
   
-  addEventHandler("onClientBrowserDocumentReady", private[self].browser, function () 
+  addEventHandler("onClientBrowserDocumentReady", browser, function () 
     local toStore = {
       type = type,
       name = name,
       value = table[name],
       options = options
     }
-    executeBrowserJavascript(private[self].browser, 'add('..toJSON(toStore)..')')
+    executeBrowserJavascript(browser, 'add("'..self.name..'", '..toJSON(toStore)..')')
   end)
 end
 
@@ -80,13 +86,14 @@ function twakcontrol:setMonitorValue(name, value)
     value = value
   }
 
+
   if (private[self].isReady) then 
-    executeBrowserJavascript(private[self].browser, 'setMonitorValue('..toJSON(toStore)..')')
+    executeBrowserJavascript(browser, 'setMonitorValue('..toJSON(toStore)..')')
   end
 end
 
-function TweakControlClass(title)
-  return twakcontrol:new(title)
+function TweakControlClass(id, title)
+  return twakcontrol:new(id, title)
 end
 
 function warn(message)

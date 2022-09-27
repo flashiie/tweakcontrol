@@ -15,5 +15,5 @@
   <file src="src/3rd-party/ui.html" />
 
 
-  <export function="TweakControlClass" type="client" />
+  <export function="getTweakClass" type="client" />
 </meta>

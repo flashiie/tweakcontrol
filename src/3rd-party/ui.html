@@ -6,37 +6,42 @@
 <body>
 <script src="./bundle.js"></script>
 <script>
+  const pane = new Tweakpane.Pane();
 
   let PARAMS = {};
+  let folders = {}
 
-  const add = (raw) => {
+
+  const makeFolder = (folderName, title) => {
+    folders = {...folders, [folderName]:pane.addFolder({
+       title: title,
+    })}
+
+    
+    return true
+  }
+  const add = (id, raw) => {
     const data = raw[0]
     PARAMS = {...PARAMS, [`${data.name}`]: data.value }
     let input
-
-
     switch (data.type) {
       case 'input':
-       input = pane.addInput(PARAMS, data.name, data.options);
+       input = folders[id].addInput(PARAMS, data.name, data.options);
 
        input.on('change', function(ev) {
           mta.triggerEvent("twakcontrol:updateValue", JSON.stringify({key: ev.presetKey, value: ev.value}))
        });
       break;
       case 'monitor':
-        input = pane.addMonitor(PARAMS, data.name, data.options);
+        input = folders[id].addMonitor(PARAMS, data.name, data.options);
       break;
     }
-
   }
 
     
   const setMonitorValue = (raw) => {
     const data = raw[0]
-    setInterval(() => {
-      PARAMS[data.name] = data.value
-     // console.log(PARAMS[data.name])
-    }, 1000)
+    PARAMS[data.name] = data.value
   }
 </script>
 
